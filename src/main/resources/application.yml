@@ -1,0 +1,16 @@
+spring:
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+  datasource:
+    username:
+    password:
+    driverClassName: "org.h2.Driver"
+#    hikari:
+#      connection-test-query: SELECT 1
+#      minimum-idle: 1
+    url: jdbc:h2:mem:modeling;DB_CLOSE_ON_EXIT=TRUE;MODE=MySQL
+    platform: org.hibernate.dialect.H2Dialect
+  flyway:
+    locations: classpath:db/migration

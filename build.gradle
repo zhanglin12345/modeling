@@ -1,0 +1,66 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.4.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+	id 'java'
+    id 'org.flywaydb.flyway' version '5.2.4'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+ext {
+    set('springCloudVersion', "Greenwich.SR1")
+    set('junitVersion', "5.5.0")
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.h2database:h2'
+    compile "com.zaxxer:HikariCP:3.2.0"
+    compile 'org.flywaydb:flyway-core'
+    compileOnly 'org.projectlombok:lombok:1.18.4'
+    annotationProcessor 'org.projectlombok:lombok:1.18.4'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    testCompile 'com.h2database:h2'
+    testCompile 'com.github.tomakehurst:wiremock-standalone:2.16.0'
+    testImplementation 'org.junit.platform:junit-platform-runner'
+    testImplementation ('org.junit.jupiter:junit-jupiter-params')
+    testImplementation ('org.junit.platform:junit-platform-launcher')
+    testImplementation 'org.mockito:mockito-junit-jupiter'
+}
+
+def activeProfile = System.getenv("SPRING_PROFILES_ACTIVE") ?: "default"
+
+flyway {
+    url = project.property('fly-way.database.url.' + activeProfile)
+    locations = flywayLocation(activeProfile)
+    user = 'root'
+    password = 'password'
+}
+
+def flywayLocation(activeProfile) {
+    if (project.hasProperty('fly-way.location.' + activeProfile)) {
+        project.property('fly-way.location.' + activeProfile).split(',')
+    } else {
+        project.property('fly-way.location.dev').split(',')
+    }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+        mavenBom "org.junit:junit-bom:${junitVersion}"
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
