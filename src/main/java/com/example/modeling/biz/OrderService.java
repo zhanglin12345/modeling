@@ -2,7 +2,7 @@ package com.example.modeling.biz;
 
 import com.example.modeling.dto.OrderDTO;
 import com.example.modeling.integration.PayService;
-import com.example.modeling.model.BaseOrderBOFactory;
+import com.example.modeling.model.OrderStateFactory;
 import com.example.modeling.model.OrderBO;
 import com.example.modeling.po.OrderPO;
 import com.example.modeling.repository.OrderRepository;
@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 public class OrderService implements BasicOrderFunction<OrderDTO>, OrderDeliverable {
     private OrderRepository orderRepository;
     private PayService payService;
-    private BaseOrderBOFactory<OrderBO, OrderPO, OrderDTO> orderBOFactory;
+    private OrderStateFactory<OrderBO, OrderPO, OrderDTO> orderBOFactory;
 
     public OrderService(OrderRepository orderRepository,
                         PayService payService,
-                        BaseOrderBOFactory<OrderBO, OrderPO, OrderDTO> orderBOFactory) {
+                        OrderStateFactory<OrderBO, OrderPO, OrderDTO> orderBOFactory) {
         this.orderRepository = orderRepository;
         this.payService = payService;
         this.orderBOFactory = orderBOFactory;

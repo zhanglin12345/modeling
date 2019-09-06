@@ -2,7 +2,7 @@ package com.example.modeling.biz;
 
 import com.example.modeling.dto.PreOrderDTO;
 import com.example.modeling.integration.PayService;
-import com.example.modeling.model.BaseOrderBOFactory;
+import com.example.modeling.model.OrderStateFactory;
 import com.example.modeling.model.PreOrderBO;
 import com.example.modeling.po.PreOrderPO;
 import com.example.modeling.repository.PreOrderRepository;
@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 public class PreOrderService implements BasicOrderFunction<PreOrderDTO>, OrderPartialPayable {
     private PreOrderRepository preOrderRepository;
     private PayService payService;
-    private BaseOrderBOFactory<PreOrderBO, PreOrderPO, PreOrderDTO> orderBOFactory;
+    private OrderStateFactory<PreOrderBO, PreOrderPO, PreOrderDTO> orderBOFactory;
 
     public PreOrderService(PreOrderRepository preOrderRepository,
                            PayService payService,
-                           BaseOrderBOFactory<PreOrderBO, PreOrderPO, PreOrderDTO> orderBOFactory) {
+                           OrderStateFactory<PreOrderBO, PreOrderPO, PreOrderDTO> orderBOFactory) {
         this.preOrderRepository = preOrderRepository;
         this.payService = payService;
         this.orderBOFactory = orderBOFactory;
