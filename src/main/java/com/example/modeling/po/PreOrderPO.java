@@ -1,10 +1,7 @@
 package com.example.modeling.po;
 
 import com.example.modeling.model.OrderStatusEnum;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -16,27 +13,28 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Builder
 public class PreOrderPO {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    protected Integer id;
 
     @Column(name = "order_id")
-    private String orderId;
+    protected String orderId;
 
     @Column(name = "name")
-    private String name;
+    protected String name;
 
     @Column(name = "amount")
-    private int amount;
+    protected int amount;
 
     @Column(name = "price")
-    private BigDecimal price;
+    protected BigDecimal price;
 
     @Column(name = "total")
-    private BigDecimal total;
+    protected BigDecimal total;
 
     @Column(name = "order_status")
-    private OrderStatusEnum orderStatus;
+    protected OrderStatusEnum orderStatus;
 
     @Column(name = "pre_money")
     private BigDecimal preMoney;

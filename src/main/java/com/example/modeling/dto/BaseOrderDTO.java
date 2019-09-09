@@ -14,4 +14,5 @@ public abstract class BaseOrderDTO {
     private String name;
     private int amount;
     private BigDecimal price;
+    private String account;
 }

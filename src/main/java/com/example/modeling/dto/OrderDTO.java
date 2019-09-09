@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(callSuper = true)
 public class OrderDTO extends BaseOrderDTO {
     @Builder
-    public OrderDTO(String orderId,String name, int amount, BigDecimal price) {
-        super(orderId, name, amount, price);
+    public OrderDTO(String orderId,String name, int amount, BigDecimal price, String account) {
+        super(orderId, name, amount, price, account);
     }
 }

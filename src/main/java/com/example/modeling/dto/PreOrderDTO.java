@@ -13,8 +13,8 @@ public class PreOrderDTO extends BaseOrderDTO {
     private long payAllMoneyDelay;
 
     @Builder
-    public PreOrderDTO(String orderId,String name, int amount, BigDecimal price, BigDecimal preMoney, long payAllMoneyDelay) {
-        super(orderId, name, amount, price);
+    public PreOrderDTO(String orderId,String name, int amount, BigDecimal price, BigDecimal preMoney, long payAllMoneyDelay, String account) {
+        super(orderId, name, amount, price, account);
         this.preMoney = preMoney;
         this.payAllMoneyDelay = payAllMoneyDelay;
     }

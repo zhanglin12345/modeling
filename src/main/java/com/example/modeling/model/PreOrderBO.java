@@ -2,9 +2,6 @@ package com.example.modeling.model;
 
 import com.example.modeling.integration.PayService;
 import lombok.*;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
 
 import java.math.BigDecimal;
 
@@ -18,33 +15,22 @@ public class PreOrderBO extends BaseOrderBO {
     private long payAllMoneyDelay;
 
     @Builder
-    public PreOrderBO(String orderId, String name, int amount, BigDecimal price, OrderStatusEnum orderStatus,
+    public PreOrderBO(String orderId, String name, int amount, BigDecimal price, OrderStatusEnum orderStatus, String account,
                       BigDecimal preMoney, long partialPayTime, long payAllMoneyDelay) {
-        super(orderId, name, amount, price, orderStatus);
+        super(orderId, name, amount, price, orderStatus, account);
         this.preMoney = preMoney;
         this.partialPayTime = partialPayTime;
         this.payAllMoneyDelay = payAllMoneyDelay;
     }
 
-    public void payOrder(PayService payService) {
-        if (System.currentTimeMillis() > payAllMoneyDelay + partialPayTime) {
-            throw new HttpClientErrorException(HttpStatus.BAD_REQUEST, "time is up!");
-        }
-
-        if (OrderStatusEnum.PartialPaid.equals(this.orderStatus)) {
-            if (payService.pay(preMoney)) {
-                this.orderStatus = OrderStatusEnum.Paid;
-            } else {
-                throw new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR, "failed to pay order " + orderId);
-            }
-        } else {
-            throw new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR, "cannot pre pay order because the status is incorrect " + orderId);
-        }
+    @Override
+    protected BigDecimal getPayOrderMoney() {
+        return getTotal().subtract(preMoney);
     }
 
     public void partialPayOrder(PayService payService) {
         if (OrderStatusEnum.Created.equals(this.orderStatus)) {
-            if (payService.pay(preMoney)) {
+            if (payService.pay(account, preMoney)) {
                 this.orderStatus = OrderStatusEnum.PartialPaid;
                 this.partialPayTime = System.currentTimeMillis();
             } else {

@@ -1,6 +1,6 @@
 package com.example.modeling.api;
 
-import com.example.modeling.biz.BasicOrderFunction;
+import com.example.modeling.biz.BasicOrderBiz;
 import com.example.modeling.biz.OrderDeliverable;
 import com.example.modeling.dto.OrderDTO;
 import org.springframework.http.HttpStatus;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/order")
 public class OrderController {
 
-    private BasicOrderFunction<OrderDTO> baseOrderFunction;
+    private BasicOrderBiz<OrderDTO> baseOrderFunction;
     private OrderDeliverable orderDeliverable;
 
-    public OrderController(BasicOrderFunction<OrderDTO> baseOrderFunction, OrderDeliverable orderDeliverable) {
+    public OrderController(BasicOrderBiz<OrderDTO> baseOrderFunction, OrderDeliverable orderDeliverable) {
         this.baseOrderFunction = baseOrderFunction;
         this.orderDeliverable = orderDeliverable;
     }
@@ -37,5 +37,11 @@ public class OrderController {
     @ResponseStatus(HttpStatus.CREATED)
     public void outStockOrder(String orderId) {
         orderDeliverable.outStockOrder(orderId);
+    }
+
+    @PostMapping("/order-payment-confirmation")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void confirmPayOrder() {
+        baseOrderFunction.confirmPayOrder();
     }
 }

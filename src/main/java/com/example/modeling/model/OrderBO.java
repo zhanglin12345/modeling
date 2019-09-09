@@ -1,6 +1,5 @@
 package com.example.modeling.model;
 
-import com.example.modeling.integration.PayService;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,20 +13,13 @@ import java.math.BigDecimal;
 public class OrderBO extends BaseOrderBO {
 
     @Builder
-    public OrderBO(String orderId, String name, int amount, BigDecimal price, OrderStatusEnum orderStatus) {
-        super(orderId, name, amount, price, orderStatus);
+    public OrderBO(String orderId, String name, int amount, BigDecimal price, OrderStatusEnum orderStatus, String account) {
+        super(orderId, name, amount, price, orderStatus, account);
     }
 
-    public void payOrder(PayService payService) {
-        if (OrderStatusEnum.Created.equals(orderStatus)) {
-            if (payService.pay(getTotal())) {
-                this.orderStatus = OrderStatusEnum.Paid;
-            } else {
-                throw new RuntimeException("failed to pay order " + orderId);
-            }
-        } else {
-            throw new RuntimeException("tried to pay a order that already paid " + orderId);
-        }
+    @Override
+    protected BigDecimal getPayOrderMoney() {
+        return getTotal();
     }
 
     public void OutStockOrder() {
