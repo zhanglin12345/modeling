@@ -12,7 +12,7 @@ public class OrderBuilder {
     public static BigDecimal PRE_MONEY = BigDecimal.valueOf(5);
     public static long PAY_ALL_MONEY_DELAY = 500000000;
     public static BigDecimal TOTAL = BigDecimal.valueOf(9.99).multiply(BigDecimal.valueOf(2));
-    public static int AMOUNT = 2;
+    public static Integer AMOUNT = 2;
 
     public static OrderDTO.OrderDTOBuilder getOrder() {
         return OrderDTO.builder()

@@ -1,15 +1,18 @@
 package com.example.modeling.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import java.math.BigDecimal;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@AllArgsConstructor
-@NoArgsConstructor
 public class PreOrderDTO extends BaseOrderDTO {
+
+    @JsonProperty("pre_money")
     private BigDecimal preMoney;
+
+    @JsonProperty("pay_all_money_delay")
     private long payAllMoneyDelay;
 
     @Builder

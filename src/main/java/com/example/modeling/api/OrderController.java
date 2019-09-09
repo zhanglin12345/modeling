@@ -4,13 +4,11 @@ import com.example.modeling.biz.BasicOrderBiz;
 import com.example.modeling.biz.OrderDeliverable;
 import com.example.modeling.dto.OrderDTO;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping(value = "/order", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class OrderController {
 
     private BasicOrderBiz<OrderDTO> baseOrderFunction;
@@ -23,19 +21,19 @@ public class OrderController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createOrder(OrderDTO orderDTO) {
+    public void createOrder(@RequestBody OrderDTO orderDTO) {
         baseOrderFunction.createOrder(orderDTO);
     }
 
     @PostMapping("/order-payment")
     @ResponseStatus(HttpStatus.CREATED)
-    public void payOrder(String orderId) {
+    public void payOrder(@PathVariable String orderId) {
         baseOrderFunction.payOrder(orderId);
     }
 
     @PostMapping("/order-stock")
     @ResponseStatus(HttpStatus.CREATED)
-    public void outStockOrder(String orderId) {
+    public void outStockOrder(@PathVariable String orderId) {
         orderDeliverable.outStockOrder(orderId);
     }
 

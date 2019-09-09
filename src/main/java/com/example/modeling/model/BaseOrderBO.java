@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 public abstract class BaseOrderBO {
     protected String orderId;
     protected String name;
-    protected int amount;
+    protected Integer amount;
     protected BigDecimal price;
     protected OrderStatusEnum orderStatus;
     protected String account;

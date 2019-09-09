@@ -25,7 +25,7 @@ public class OrderPO {
     protected String name;
 
     @Column(name = "amount")
-    protected int amount;
+    protected Integer amount;
 
     @Column(name = "price")
     protected BigDecimal price;

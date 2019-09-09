@@ -17,4 +17,10 @@
     <logger name="com.zaxxer.hikari" level="debug" additivity="false">
         <appender-ref ref="console"/>
     </logger>
+
+    <springProfile name="default,local">
+        <root level="info">
+            <appender-ref ref="console"/>
+        </root>
+    </springProfile>
 </configuration>

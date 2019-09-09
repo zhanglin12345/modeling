@@ -1,8 +1,6 @@
 package com.example.modeling.dto;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.math.BigDecimal;
 
@@ -10,7 +8,7 @@ import java.math.BigDecimal;
 @EqualsAndHashCode(callSuper = true)
 public class OrderDTO extends BaseOrderDTO {
     @Builder
-    public OrderDTO(String orderId,String name, int amount, BigDecimal price, String account) {
+    public OrderDTO(String orderId,String name, Integer amount, BigDecimal price, String account) {
         super(orderId, name, amount, price, account);
     }
 }
