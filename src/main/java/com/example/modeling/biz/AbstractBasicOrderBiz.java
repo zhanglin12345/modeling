@@ -33,7 +33,7 @@ public abstract class AbstractBasicOrderBiz<typeBO extends BaseOrderBO, typePO, 
         try {
             persistOrder(orderBO, getIdentity(orderPO)); // if fails require cancellation
         } catch (Exception e) {
-            orderBO.cancelPayOrder(payService); // if cancellation fails required real people
+            orderBO.cancelPayOrder(payService); // if cancellation fails, then payment service will not receive confirm, then payment service need expire and rollback the payment
         }
     }
 
@@ -42,7 +42,7 @@ public abstract class AbstractBasicOrderBiz<typeBO extends BaseOrderBO, typePO, 
         List<typePO> orderPOs = findByOrderStatus(OrderStatusEnum.Paid_not_Confirm);
         orderPOs.forEach(orderPO -> {
             typeBO orderBO = orderStateFactory.transfer(orderPO);
-            orderBO.confirmPayOrder(payService);
+            orderBO.confirmPayOrder(payService); //un-confirmed payment will be rollback after expire time
             persistOrder(orderBO, getIdentity(orderPO)); //todo should be batch persist
         });
     }
