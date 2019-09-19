@@ -5,10 +5,10 @@ import com.example.modeling.po.OrderPO;
 import org.springframework.stereotype.Service;
 
 @Service
-public class OrderStateFactoryImpl implements OrderStateFactory<OrderBO, OrderPO, OrderDTO> {
+public class OrderStateTemplateImpl implements OrderStateTemplate<OrderBO, OrderPO, OrderDTO> {
 
     @Override
-    public OrderBO create(OrderDTO orderDTO) {
+    public OrderBO transfer(OrderDTO orderDTO) {
         return OrderBO.builder()
                 .orderId(orderDTO.getOrderId())
                 .name(orderDTO.getName())

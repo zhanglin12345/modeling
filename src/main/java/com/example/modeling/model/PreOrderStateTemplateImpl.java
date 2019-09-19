@@ -5,7 +5,7 @@ import com.example.modeling.po.PreOrderPO;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PreOrderStateFactoryImpl implements OrderStateFactory<PreOrderBO, PreOrderPO, PreOrderDTO> {
+public class PreOrderStateTemplateImpl implements OrderStateTemplate<PreOrderBO, PreOrderPO, PreOrderDTO> {
 
     @Override
     public PreOrderPO transfer(PreOrderBO orderBO) {
@@ -23,7 +23,7 @@ public class PreOrderStateFactoryImpl implements OrderStateFactory<PreOrderBO, P
     }
 
     @Override
-    public PreOrderBO create(PreOrderDTO preOrderDTO) {
+    public PreOrderBO transfer(PreOrderDTO preOrderDTO) {
         return PreOrderBO.builder()
                 .orderId(preOrderDTO.getOrderId())
                 .name(preOrderDTO.getName())

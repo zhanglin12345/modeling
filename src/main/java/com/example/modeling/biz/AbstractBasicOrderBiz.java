@@ -3,16 +3,16 @@ package com.example.modeling.biz;
 import com.example.modeling.dto.BaseOrderDTO;
 import com.example.modeling.integration.PayService;
 import com.example.modeling.model.BaseOrderBO;
-import com.example.modeling.model.OrderStateFactory;
+import com.example.modeling.model.OrderStateTemplate;
 import com.example.modeling.model.OrderStatusEnum;
 
 import java.util.List;
 
 public abstract class AbstractBasicOrderBiz<typeBO extends BaseOrderBO, typePO, typeDTO extends BaseOrderDTO> implements BasicOrderBiz<typeDTO> {
-    OrderStateFactory<typeBO, typePO, typeDTO> orderStateFactory;
+    OrderStateTemplate<typeBO, typePO, typeDTO> orderStateFactory;
     PayService payService;
 
-    AbstractBasicOrderBiz(OrderStateFactory<typeBO, typePO, typeDTO> orderStateFactory,
+    AbstractBasicOrderBiz(OrderStateTemplate<typeBO, typePO, typeDTO> orderStateFactory,
                           PayService payService) {
         this.orderStateFactory = orderStateFactory;
         this.payService = payService;
@@ -20,7 +20,7 @@ public abstract class AbstractBasicOrderBiz<typeBO extends BaseOrderBO, typePO, 
 
     @Override
     public void createOrder(typeDTO orderDTO) {
-        typeBO orderBO = orderStateFactory.create(orderDTO);
+        typeBO orderBO = orderStateFactory.transfer(orderDTO);
         persistOrder(orderBO, null);
     }
 

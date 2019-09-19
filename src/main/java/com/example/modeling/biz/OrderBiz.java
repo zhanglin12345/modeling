@@ -3,7 +3,7 @@ package com.example.modeling.biz;
 import com.example.modeling.dto.OrderDTO;
 import com.example.modeling.integration.PayService;
 import com.example.modeling.model.OrderBO;
-import com.example.modeling.model.OrderStateFactory;
+import com.example.modeling.model.OrderStateTemplate;
 import com.example.modeling.model.OrderStatusEnum;
 import com.example.modeling.po.OrderPO;
 import com.example.modeling.repository.OrderRepository;
@@ -17,7 +17,7 @@ import java.util.List;
 public class OrderBiz extends AbstractBasicOrderBiz<OrderBO, OrderPO, OrderDTO> implements OrderDeliverable {
     private OrderRepository orderRepository;
 
-    public OrderBiz(OrderStateFactory<OrderBO, OrderPO, OrderDTO> orderStateFactory,
+    public OrderBiz(OrderStateTemplate<OrderBO, OrderPO, OrderDTO> orderStateFactory,
                     PayService payService,
                     OrderRepository orderRepository) {
         super(orderStateFactory, payService);

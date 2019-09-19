@@ -2,7 +2,7 @@ package com.example.modeling.biz;
 
 import com.example.modeling.dto.PreOrderDTO;
 import com.example.modeling.integration.PayService;
-import com.example.modeling.model.OrderStateFactory;
+import com.example.modeling.model.OrderStateTemplate;
 import com.example.modeling.model.OrderStatusEnum;
 import com.example.modeling.model.PreOrderBO;
 import com.example.modeling.po.PreOrderPO;
@@ -15,7 +15,7 @@ import java.util.List;
 public class PreOrderBiz extends AbstractBasicOrderBiz<PreOrderBO, PreOrderPO, PreOrderDTO> implements OrderPartialPayable {
     private PreOrderRepository preOrderRepository;
 
-    public PreOrderBiz(OrderStateFactory<PreOrderBO, PreOrderPO, PreOrderDTO> orderStateFactory,
+    public PreOrderBiz(OrderStateTemplate<PreOrderBO, PreOrderPO, PreOrderDTO> orderStateFactory,
                        PayService payService,
                        PreOrderRepository preOrderRepository) {
         super(orderStateFactory, payService);
