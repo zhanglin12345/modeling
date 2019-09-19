@@ -11,24 +11,24 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/order", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class OrderController {
 
-    private BasicOrderBiz<OrderDTO> baseOrderFunction;
+    private BasicOrderBiz<OrderDTO> basicOrderBiz;
     private OrderDeliverable orderDeliverable;
 
-    public OrderController(BasicOrderBiz<OrderDTO> baseOrderFunction, OrderDeliverable orderDeliverable) {
-        this.baseOrderFunction = baseOrderFunction;
+    public OrderController(BasicOrderBiz<OrderDTO> basicOrderBiz, OrderDeliverable orderDeliverable) {
+        this.basicOrderBiz = basicOrderBiz;
         this.orderDeliverable = orderDeliverable;
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createOrder(@RequestBody OrderDTO orderDTO) {
-        baseOrderFunction.createOrder(orderDTO);
+        basicOrderBiz.createOrder(orderDTO);
     }
 
     @PostMapping("/order-payment")
     @ResponseStatus(HttpStatus.CREATED)
     public void payOrder(@PathVariable String orderId) {
-        baseOrderFunction.payOrder(orderId);
+        basicOrderBiz.payOrder(orderId);
     }
 
     @PostMapping("/order-stock")
@@ -40,6 +40,6 @@ public class OrderController {
     @PostMapping("/order-payment-confirmation")
     @ResponseStatus(HttpStatus.CREATED)
     public void confirmPayOrder() {
-        baseOrderFunction.confirmPayOrder();
+        basicOrderBiz.confirmPayOrder();
     }
 }
