@@ -14,12 +14,12 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class OrderBiz extends AbstractBasicOrderBiz<OrderBO, OrderPO, OrderDTO> implements OrderDeliverable {
+public class OrderService extends AbstractBasicOrderService<OrderBO, OrderPO, OrderDTO> implements OrderDeliverable {
     private OrderRepository orderRepository;
 
-    public OrderBiz(OrderStateTemplate<OrderBO, OrderPO, OrderDTO> orderStateFactory,
-                    PayService payService,
-                    OrderRepository orderRepository) {
+    public OrderService(OrderStateTemplate<OrderBO, OrderPO, OrderDTO> orderStateFactory,
+                        PayService payService,
+                        OrderRepository orderRepository) {
         super(orderStateFactory, payService);
         this.orderRepository = orderRepository;
     }

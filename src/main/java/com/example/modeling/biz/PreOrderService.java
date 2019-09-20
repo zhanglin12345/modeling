@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PreOrderBiz extends AbstractBasicOrderBiz<PreOrderBO, PreOrderPO, PreOrderDTO> implements OrderPartialPayable {
+public class PreOrderService extends AbstractBasicOrderService<PreOrderBO, PreOrderPO, PreOrderDTO> implements OrderPartialPayable {
     private PreOrderRepository preOrderRepository;
 
-    public PreOrderBiz(OrderStateTemplate<PreOrderBO, PreOrderPO, PreOrderDTO> orderStateFactory,
-                       PayService payService,
-                       PreOrderRepository preOrderRepository) {
+    public PreOrderService(OrderStateTemplate<PreOrderBO, PreOrderPO, PreOrderDTO> orderStateFactory,
+                           PayService payService,
+                           PreOrderRepository preOrderRepository) {
         super(orderStateFactory, payService);
         this.preOrderRepository = preOrderRepository;
     }

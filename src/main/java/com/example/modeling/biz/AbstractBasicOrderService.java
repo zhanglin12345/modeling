@@ -8,12 +8,12 @@ import com.example.modeling.model.OrderStatusEnum;
 
 import java.util.List;
 
-public abstract class AbstractBasicOrderBiz<typeBO extends BaseOrderBO, typePO, typeDTO extends BaseOrderDTO> implements BasicOrderBiz<typeDTO> {
+public abstract class AbstractBasicOrderService<typeBO extends BaseOrderBO, typePO, typeDTO extends BaseOrderDTO> implements BasicOrderBiz<typeDTO> {
     OrderStateTemplate<typeBO, typePO, typeDTO> orderStateFactory;
     PayService payService;
 
-    AbstractBasicOrderBiz(OrderStateTemplate<typeBO, typePO, typeDTO> orderStateFactory,
-                          PayService payService) {
+    AbstractBasicOrderService(OrderStateTemplate<typeBO, typePO, typeDTO> orderStateFactory,
+                              PayService payService) {
         this.orderStateFactory = orderStateFactory;
         this.payService = payService;
     }
