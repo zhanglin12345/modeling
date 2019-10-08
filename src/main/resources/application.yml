@@ -8,6 +8,10 @@ spring:
     password:
     driverClassName: "org.h2.Driver"
     type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      connectionTimeout: 20000
+      maximumPoolSize: 50
+      poolName: HikariPoolZZZ
 #    hikari:
 #      connection-test-query: SELECT 1
 #      minimum-idle: 1
