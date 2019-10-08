@@ -14,7 +14,7 @@
         </encoder>
     </appender>
 
-    <logger name="com.zaxxer.hikari" level="debug" additivity="false">
+    <logger name="com.zaxxer.hikari" level="info" additivity="false">
         <appender-ref ref="console"/>
     </logger>
 
