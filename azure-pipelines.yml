@@ -10,7 +10,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- task: Gradle@5.4
+- task: Gradle@5
   inputs:
     workingDirectory: ''
     gradleWrapperFile: 'gradlew'
