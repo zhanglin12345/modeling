@@ -28,7 +28,7 @@ public class OrderService extends AbstractBasicOrderService<OrderBO, OrderPO, Or
     public void outStockOrder(String orderId) {
         OrderPO orderPO = findOrderPO(orderId);
         OrderBO orderBO =  orderStateFactory.transfer(orderPO);
-        orderBO.OutStockOrder();
+        orderBO.outStockOrder();
         persistOrder(orderBO, orderPO.getId());
     }
 

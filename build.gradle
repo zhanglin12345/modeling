@@ -1,9 +1,23 @@
+buildscript {
+    dependencies {
+        classpath "gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.2"
+    }
+}
+
 plugins {
 	id 'org.springframework.boot' version '2.1.4.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 	id 'java'
     id 'org.flywaydb.flyway' version '5.2.4'
     id "com.adarshr.test-logger" version "2.0.0"
+    id "com.github.spotbugs" version "1.7.1"
+}
+
+spotbugs {
+    toolVersion = '3.1.12'
+    ignoreFailures = true
+    effort = 'max'
+    showProgress = true
 }
 
 group = 'com.example'
@@ -44,6 +58,8 @@ dependencies {
     testImplementation ('org.junit.jupiter:junit-jupiter-params')
     testImplementation ('org.junit.platform:junit-platform-launcher')
     testImplementation 'org.mockito:mockito-junit-jupiter'
+
+    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.7.1'
 }
 
 def activeProfile = System.getenv("SPRING_PROFILES_ACTIVE") ?: "default"
@@ -120,3 +136,31 @@ testlogger {
     // set to false to hide failed standard out and error streams
     showFailedStandardStreams true
 }
+
+
+// Spot bugs
+sourceSets {
+    // we define `main` sourceSet here, so SpotBugs Gradle Plugin generates `spotbugsMain` task
+    main {
+        java.srcDirs = ['src/main/java']
+    }
+}
+
+spotbugs {
+    ignoreFailures = false
+    effort = "max"
+    reportLevel = "medium"
+//    visitors = ["FindSqlInjection", "SwitchFallthrough"]
+//    omitVisitors = ["FindNonShortCircuit"]
+//    includeFilter = file("$rootProject.projectDir/config/findbugs/includeFilter.xml")
+//    excludeFilter = file("$rootProject.projectDir/config/findbugs/excludeFilter.xml")
+}
+
+// To generate an HTML report instead of XML
+tasks.withType(com.github.spotbugs.SpotBugsTask) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+// Spot bugs

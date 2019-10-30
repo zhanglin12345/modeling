@@ -10,12 +10,6 @@ import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jmx.export.naming.IdentityNamingStrategy;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
-
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.concurrent.locks.ReentrantLock;
 
 import static com.example.modeling.builder.OrderBuilder.*;
 import static org.junit.Assert.assertEquals;
@@ -45,28 +39,6 @@ public class OrderControllerTest {
         assertEquals(TOTAL, orderPO.getTotal());
         assertEquals(AMOUNT, orderPO.getAmount());
         assertEquals(OrderStatusEnum.Created, orderPO.getOrderStatus());
-    }
-
-    static ArrayList<Integer> list = new ArrayList<>();
-
-    static void test() {
-        StringBuffer buffer = new StringBuffer();
-        buffer.append("aa");
-        StringBuilder builder = new StringBuilder();
-        builder.append("aaa");
-    }
-
-    static void lockM(int index) {
-        try {
-            synchronized (list.get(index)) {
-                if (index == 0) {
-                    Thread.sleep(500);
-                }
-                System.out.println("lock1");
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
     }
 
 }

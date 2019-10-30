@@ -1,5 +1,6 @@
 package com.example.modeling.model;
 
+import com.example.modeling.exception.CustomException;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,13 +23,13 @@ public class OrderBO extends BaseOrderBO {
         return getTotal();
     }
 
-    public void OutStockOrder() {
+    public void outStockOrder() {
         if (OrderStatusEnum.Paid.equals(orderStatus)) {
             this.orderStatus = OrderStatusEnum.OutStock;
         } else if (OrderStatusEnum.Created.equals(orderStatus)) {
-            throw new RuntimeException("tried to out stock a order that not paid " + orderId);
+            throw new CustomException("tried to out stock a order that not paid " + orderId);
         } else
-            throw new RuntimeException("tried to out stock a order that already out " + orderId);
+            throw new CustomException("tried to out stock a order that already out " + orderId);
     }
 
 
@@ -36,7 +37,7 @@ public class OrderBO extends BaseOrderBO {
         if (OrderStatusEnum.OutStock.equals(orderStatus)) {
             this.orderStatus = OrderStatusEnum.Delivered;
         } else {
-            throw new RuntimeException("tried to deliver a order that not correct status " + orderId);
+            throw new CustomException("tried to deliver a order that not correct status " + orderId);
         }
     }
 
@@ -45,7 +46,7 @@ public class OrderBO extends BaseOrderBO {
         if (OrderStatusEnum.Delivery.equals(orderStatus)) {
             this.orderStatus = OrderStatusEnum.Delivered;
         } else {
-            throw new RuntimeException("tried to delivered a order that not correct status " + orderId);
+            throw new CustomException("tried to delivered a order that not correct status " + orderId);
         }
     }
 }
