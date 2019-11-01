@@ -21,8 +21,7 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
     tasks: 'clean build'
-- task: KubernetesManifest@0
+- task: Docker@2
   inputs:
-    action: 'deploy'
-    kubernetesServiceConnection: 'dev-ask-cluster-name-default-1572589626757'
-    namespace: 'aks-namespace'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
