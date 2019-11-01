@@ -21,3 +21,8 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
     tasks: 'clean build'
+- task: KubernetesManifest@0
+  inputs:
+    action: 'deploy'
+    kubernetesServiceConnection: 'dev-ask-cluster-name-default-1572589626757'
+    namespace: 'aks-namespace'
