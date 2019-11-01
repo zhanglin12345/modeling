@@ -23,5 +23,9 @@ steps:
     tasks: 'clean build'
 - task: Docker@2
   inputs:
-    command: 'buildAndPush'
+    command: 'build'
     Dockerfile: '**/Dockerfile'
+
+- task: Docker@2
+  inputs:
+    command: 'push'
