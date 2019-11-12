@@ -8,7 +8,6 @@ import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
@@ -20,10 +19,15 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
 @Component
 public class GraphQLProvider {
-    private GraphQL graphQL;
+    private transient GraphQL graphQL;
+    private final transient GraphQLDataFetchers graphQLDataFetchers;
+
+    public GraphQLProvider(GraphQLDataFetchers graphQLDataFetchers) {
+        this.graphQLDataFetchers = graphQLDataFetchers;
+    }
 
     @Bean
-    public GraphQL graphQL() {
+    public GraphQL getGraphQL() {
         return graphQL;
     }
 
@@ -34,9 +38,6 @@ public class GraphQLProvider {
         GraphQLSchema graphQLSchema = buildSchema(sdl);
         this.graphQL = GraphQL.newGraphQL(graphQLSchema).build();
     }
-
-    @Autowired
-    GraphQLDataFetchers graphQLDataFetchers;
 
     private GraphQLSchema buildSchema(String sdl) {
         TypeDefinitionRegistry typeRegistry = new SchemaParser().parse(sdl);

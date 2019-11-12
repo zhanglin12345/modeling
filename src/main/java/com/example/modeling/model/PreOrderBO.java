@@ -1,5 +1,6 @@
 package com.example.modeling.model;
 
+import com.example.modeling.exception.CustomException;
 import com.example.modeling.integration.PayService;
 import lombok.*;
 
@@ -34,10 +35,10 @@ public class PreOrderBO extends BaseOrderBO {
                 this.orderStatus = OrderStatusEnum.PartialPaid;
                 this.partialPayTime = System.currentTimeMillis();
             } else {
-                throw new RuntimeException("failed to partial pay order " + orderId);
+                throw new CustomException("failed to partial pay order " + orderId);
             }
         } else {
-            throw new RuntimeException("cannot pre pay order because the status is incorrect " + orderId);
+            throw new CustomException("cannot pre pay order because the status is incorrect " + orderId);
         }
     }
 }

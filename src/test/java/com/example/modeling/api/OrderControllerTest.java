@@ -18,10 +18,10 @@ import static org.junit.Assert.assertEquals;
 @RunWith(JUnitPlatform.class)
 public class OrderControllerTest {
     @Autowired
-    private OrderController orderController;
+    private transient OrderController orderController;
 
     @Autowired
-    private OrderRepository orderRepository;
+    private transient OrderRepository orderRepository;
 
     @AfterEach
     void deleteAll() {

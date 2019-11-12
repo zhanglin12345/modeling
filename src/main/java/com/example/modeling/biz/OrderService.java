@@ -15,7 +15,7 @@ import java.util.List;
 @Slf4j
 @Service
 public class OrderService extends AbstractBasicOrderService<OrderBO, OrderPO, OrderDTO> implements OrderDeliverable {
-    private OrderRepository orderRepository;
+    private final transient OrderRepository orderRepository;
 
     public OrderService(OrderStateTemplate<OrderBO, OrderPO, OrderDTO> orderStateFactory,
                         PayService payService,

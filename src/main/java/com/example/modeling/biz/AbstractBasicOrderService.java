@@ -9,8 +9,8 @@ import com.example.modeling.model.OrderStatusEnum;
 import java.util.List;
 
 public abstract class AbstractBasicOrderService<typeBO extends BaseOrderBO, typePO, typeDTO extends BaseOrderDTO> implements BasicOrderBiz<typeDTO> {
-    OrderStateTemplate<typeBO, typePO, typeDTO> orderStateFactory;
-    PayService payService;
+    protected final transient OrderStateTemplate<typeBO, typePO, typeDTO> orderStateFactory;
+    protected final transient PayService payService;
 
     AbstractBasicOrderService(OrderStateTemplate<typeBO, typePO, typeDTO> orderStateFactory,
                               PayService payService) {

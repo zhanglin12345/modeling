@@ -1,5 +1,6 @@
 package com.example.modeling.model;
 
+import com.example.modeling.exception.CustomException;
 import com.example.modeling.integration.PayService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,7 +25,7 @@ public abstract class BaseOrderBO {
 
     public void payOrder(PayService payService) {
         if (!OrderStatusEnum.Created.equals(orderStatus)) {
-            throw new RuntimeException("tried to pay a order that already paid " + orderId);
+            throw new CustomException("tried to pay a order that already paid " + orderId);
         }
         this.orderStatus = OrderStatusEnum.Paid_not_Confirm;
         lockMoney(payService, getPayOrderMoney());
@@ -43,7 +44,7 @@ public abstract class BaseOrderBO {
 
     public void confirmPayOrder(PayService payService) {
         if (!OrderStatusEnum.Paid_not_Confirm.equals(orderStatus)) {
-            throw new RuntimeException("only paid not confirmed order can be confirmed " + orderId);
+            throw new CustomException("only paid not confirmed order can be confirmed " + orderId);
         }
 
         if (payService.confirmMoneyPaid(account, getPayOrderMoney())) {
@@ -58,13 +59,13 @@ public abstract class BaseOrderBO {
     private void lockMoney(PayService payService, BigDecimal value) {
         final long expiredDuration = 5000;
         if (!payService.lockMoney(account, value, expiredDuration)) {
-            throw new RuntimeException(String.format("failed to lock order %s,", orderId));
+            throw new CustomException(String.format("failed to lock order %s,", orderId));
         }
     }
 
     private void unLockMoney(PayService payService, BigDecimal value) {
         if (!payService.unLockMoney(account, value)) {
-            throw new RuntimeException(String.format("failed to unlock order %s,", orderId));
+            throw new CustomException(String.format("failed to unlock order %s,", orderId));
         }
     }
 }

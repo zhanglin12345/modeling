@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/order", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class OrderController {
 
-    private BasicOrderBiz<OrderDTO> basicOrderBiz;
-    private OrderDeliverable orderDeliverable;
+    private transient final BasicOrderBiz<OrderDTO> basicOrderBiz;
+    private transient final OrderDeliverable orderDeliverable;
 
     public OrderController(BasicOrderBiz<OrderDTO> basicOrderBiz, OrderDeliverable orderDeliverable) {
         this.basicOrderBiz = basicOrderBiz;

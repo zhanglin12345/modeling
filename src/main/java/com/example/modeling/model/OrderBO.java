@@ -28,8 +28,9 @@ public class OrderBO extends BaseOrderBO {
             this.orderStatus = OrderStatusEnum.OutStock;
         } else if (OrderStatusEnum.Created.equals(orderStatus)) {
             throw new CustomException("tried to out stock a order that not paid " + orderId);
-        } else
+        } else {
             throw new CustomException("tried to out stock a order that already out " + orderId);
+        }
     }
 
 

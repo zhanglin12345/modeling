@@ -20,10 +20,10 @@ import static org.junit.Assert.assertTrue;
 class PreOrderControllerTest {
 
     @Autowired
-    private PreOrderController preOrderController;
+    private transient PreOrderController preOrderController;
 
     @Autowired
-    private PreOrderRepository preOrderRepository;
+    private transient PreOrderRepository preOrderRepository;
 
     @BeforeEach
     void deleteAll() {

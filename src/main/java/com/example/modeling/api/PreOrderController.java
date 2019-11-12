@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value = "/pre-order", produces = MediaType.APPLICATION_JSON_UTF8_VALUE, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class PreOrderController {
-    private BasicOrderBiz<PreOrderDTO> basicOrderBiz;
-    private OrderPartialPayable orderPartialPayable;
+    private final transient BasicOrderBiz<PreOrderDTO> basicOrderBiz;
+    private final transient OrderPartialPayable orderPartialPayable;
 
     public PreOrderController(BasicOrderBiz<PreOrderDTO> basicOrderBiz, OrderPartialPayable orderPartialPayable) {
         this.basicOrderBiz = basicOrderBiz;

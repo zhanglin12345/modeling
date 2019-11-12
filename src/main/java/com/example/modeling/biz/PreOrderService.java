@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 public class PreOrderService extends AbstractBasicOrderService<PreOrderBO, PreOrderPO, PreOrderDTO> implements OrderPartialPayable {
-    private PreOrderRepository preOrderRepository;
+    private final transient PreOrderRepository preOrderRepository;
 
     public PreOrderService(OrderStateTemplate<PreOrderBO, PreOrderPO, PreOrderDTO> orderStateFactory,
                            PayService payService,

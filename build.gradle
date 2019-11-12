@@ -11,6 +11,20 @@ plugins {
     id 'org.flywaydb.flyway' version '5.2.4'
     id "com.adarshr.test-logger" version "2.0.0"
     id "com.github.spotbugs" version "1.7.1"
+    id "jacoco"
+    id 'pmd'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+pmd{
+    toolVersion = '6.19.0'
+    consoleOutput= true
+    ignoreFailures = false
+    ruleSetFiles = files("config/pmd/ruleset.xml")
+    reportsDir = file("build/reports/pmd")
 }
 
 spotbugs {
@@ -19,10 +33,6 @@ spotbugs {
     effort = 'max'
     showProgress = true
 }
-
-group = 'com.example'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
 
 ext {
     set('springCloudVersion', "Greenwich.SR1")
@@ -164,3 +174,32 @@ tasks.withType(com.github.spotbugs.SpotBugsTask) {
     }
 }
 // Spot bugs
+
+// jacoco
+jacocoTestReport {
+    afterEvaluate {
+        classDirectories.from = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    '**/dto/**', '**/*DTO*', '**/*Exception*', '**/Application*', '**/domain/**', '**/config/**', '**/**ExceptionHandler*'
+            ])
+        })
+    }
+}
+jacocoTestCoverageVerification {
+    afterEvaluate {
+        classDirectories.from = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: [
+                    '**/dto/**', '**/*DTO*', '**/*Exception*', '**/Application*', '**/domain/**', '**/config/**', '**/**ExceptionHandler*'
+            ])
+        })
+    }
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.34
+            }
+        }
+    }
+}
+check.dependsOn jacocoTestCoverageVerification
+// jacoco
