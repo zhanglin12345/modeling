@@ -10,12 +10,14 @@ import org.junit.platform.runner.JUnitPlatform;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import static com.example.modeling.builder.OrderBuilder.*;
 import static org.junit.Assert.assertEquals;
 
 @SpringBootTest
 @RunWith(JUnitPlatform.class)
+@ActiveProfiles("test")
 public class OrderControllerTest {
     @Autowired
     private transient OrderController orderController;

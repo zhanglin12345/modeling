@@ -3,19 +3,18 @@ spring:
     generate-ddl: false
     hibernate:
       ddl-auto: none
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
   datasource:
-    username:
-    password:
-    driverClassName: "org.h2.Driver"
-    type: com.zaxxer.hikari.HikariDataSource
+    username: root
+    password: password
+    driver-class-name: org.postgresql.Driver
     hikari:
-      connectionTimeout: 20000
-      maximumPoolSize: 50
-      poolName: HikariPoolZZZ
-#    hikari:
-#      connection-test-query: SELECT 1
-#      minimum-idle: 1
-    url: jdbc:h2:mem:modeling;DB_CLOSE_ON_EXIT=TRUE;MODE=MySQL
-    platform: org.hibernate.dialect.H2Dialect
+      connection-test-query: SELECT 1
+      minimum-idle: 1
+      jdbc-url: jdbc:postgresql://127.0.0.1:5432/modeling
   flyway:
-    locations: classpath:db/migration
+    locations: ["classpath:/db/migration"]
