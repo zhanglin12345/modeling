@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @Slf4j
 @SpringBootApplication
+@SuppressWarnings("PMD.UseUtilityClass")
 public class ModelingApplication {
 	public static void main(String[] args) {
 	    SpringApplication.run(ModelingApplication.class, args);

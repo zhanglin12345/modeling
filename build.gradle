@@ -19,21 +19,6 @@ group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
-pmd{
-    toolVersion = '6.19.0'
-    consoleOutput= true
-    ignoreFailures = false
-    ruleSetFiles = files("config/pmd/ruleset.xml")
-    reportsDir = file("build/reports/pmd")
-}
-
-spotbugs {
-    toolVersion = '3.1.12'
-    ignoreFailures = true
-    effort = 'max'
-    showProgress = true
-}
-
 ext {
     set('springCloudVersion', "Greenwich.SR1")
     set('junitVersion', "5.5.0")
@@ -50,26 +35,24 @@ dependencies {
     implementation 'com.h2database:h2'
     implementation "com.zaxxer:HikariCP:3.2.0"
     implementation 'org.flywaydb:flyway-core'
-    compileOnly 'org.projectlombok:lombok:1.18.4'
-    annotationProcessor 'org.projectlombok:lombok:1.18.4'
-
-    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.2'
-
+    implementation 'org.postgresql:postgresql:42.2.2'
     implementation 'com.graphql-java:graphql-java:11.0' // NEW
     implementation 'com.graphql-java:graphql-java-spring-boot-starter-webmvc:1.0' // NEW
     implementation 'com.google.guava:guava:26.0-jre' // NEW
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    compileOnly 'org.projectlombok:lombok:1.18.4'
+    annotationProcessor 'org.projectlombok:lombok:1.18.4'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.mockito:mockito-junit-jupiter'
+    testImplementation 'com.h2database:h2'
+    testImplementation 'com.github.tomakehurst:wiremock-standalone:2.16.0'
+
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
     testImplementation 'org.junit.platform:junit-platform-runner'
     testImplementation ('org.junit.jupiter:junit-jupiter-params')
     testImplementation ('org.junit.platform:junit-platform-launcher')
-    testImplementation 'org.mockito:mockito-junit-jupiter'
-
-    testImplementation 'com.h2database:h2'
-    testImplementation 'com.github.tomakehurst:wiremock-standalone:2.16.0'
 
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.7.1'
 }
@@ -81,10 +64,13 @@ dependencyManagement {
     }
 }
 
+// junit 5 begin
 test {
     useJUnitPlatform()
 }
+// junit5 end
 
+// test logger begin
 testlogger {
     // pick a theme - mocha, standard, plain, mocha-parallel, standard-parallel or plain-parallel
     theme 'standard'
@@ -132,8 +118,26 @@ testlogger {
     showFailedStandardStreams true
 }
 
+// test logger end
 
-// Spot bugs
+// PMD begin
+pmd {
+    toolVersion = '6.19.0'
+    consoleOutput = true
+    ignoreFailures = false
+    ruleSetFiles = files("config/pmd/ruleset.xml")
+    reportsDir = file("build/reports/pmd")
+}
+// PMD end
+
+// spot bugs begin
+spotbugs {
+    toolVersion = '3.1.12'
+    ignoreFailures = true
+    effort = 'max'
+    showProgress = true
+}
+
 sourceSets {
     // we define `main` sourceSet here, so SpotBugs Gradle Plugin generates `spotbugsMain` task
     main {
@@ -158,9 +162,9 @@ tasks.withType(com.github.spotbugs.SpotBugsTask) {
         html.enabled = true
     }
 }
-// Spot bugs
+// Spot bugs end
 
-// jacoco
+// jacoco begin
 jacocoTestReport {
     afterEvaluate {
         classDirectories.from = files(classDirectories.files.collect {
@@ -187,4 +191,4 @@ jacocoTestCoverageVerification {
     }
 }
 check.dependsOn jacocoTestCoverageVerification
-// jacoco
+// jacoco end

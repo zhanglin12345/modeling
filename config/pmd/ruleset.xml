@@ -3,6 +3,8 @@
     <description>This ruleset checks my code for bad stuff</description>
     <rule ref="category/java/bestpractices.xml">
         <exclude name="JUnitTestsShouldIncludeAssert" />
+        <exclude name="JUnitTestContainsTooManyAsserts" />
+        <exclude name="JUnitAssertionsShouldIncludeMessage" />
     </rule>
     <rule ref="category/java/codestyle.xml">
         <exclude name="AtLeastOneConstructor"/>
@@ -38,6 +40,7 @@
         <exclude name="LoosePackageCoupling"/>
         <exclude name="SignatureDeclareThrowsException"/>
         <exclude name="ClassWithOnlyPrivateConstructorsShouldBeFinal" />
+        <exclude name="UseUtilityClass" />
     </rule>
     <rule ref="category/java/documentation.xml">
         <exclude name="UncommentedEmptyConstructor"/>

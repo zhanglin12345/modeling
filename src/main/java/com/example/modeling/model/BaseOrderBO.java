@@ -24,10 +24,10 @@ public abstract class BaseOrderBO {
     }
 
     public void payOrder(PayService payService) {
-        if (!OrderStatusEnum.Created.equals(orderStatus)) {
+        if (!OrderStatusEnum.CREATED.equals(orderStatus)) {
             throw new CustomException("tried to pay a order that already paid " + orderId);
         }
-        this.orderStatus = OrderStatusEnum.Paid_not_Confirm;
+        this.orderStatus = OrderStatusEnum.PAID_NOT_CONFIRM;
         lockMoney(payService, getPayOrderMoney());
 
         try {
@@ -38,19 +38,19 @@ public abstract class BaseOrderBO {
     }
 
     public void cancelPayOrder(PayService payService) {
-        this.orderStatus = OrderStatusEnum.Created;
+        this.orderStatus = OrderStatusEnum.CREATED;
         unLockMoney(payService, getPayOrderMoney());
     }
 
     public void confirmPayOrder(PayService payService) {
-        if (!OrderStatusEnum.Paid_not_Confirm.equals(orderStatus)) {
+        if (!OrderStatusEnum.PAID_NOT_CONFIRM.equals(orderStatus)) {
             throw new CustomException("only paid not confirmed order can be confirmed " + orderId);
         }
 
         if (payService.confirmMoneyPaid(account, getPayOrderMoney())) {
-            orderStatus = OrderStatusEnum.Paid;
+            orderStatus = OrderStatusEnum.PAID;
         } else {
-            orderStatus = OrderStatusEnum.PartialPaid;
+            orderStatus = OrderStatusEnum.PARTIAL_PAID;
         }
     }
 

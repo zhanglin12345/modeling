@@ -33,7 +33,8 @@ public class PreOrderPO {
     @Column(name = "total")
     protected BigDecimal total;
 
-    @Column(name = "order_status")
+    @Column(name = "order_status", columnDefinition = "enum")
+    @Enumerated(EnumType.STRING)
     protected OrderStatusEnum orderStatus;
 
     @Column(name = "pre_money")

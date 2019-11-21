@@ -17,4 +17,4 @@ spring:
       minimum-idle: 1
       jdbc-url: jdbc:postgresql://127.0.0.1:5432/modeling
   flyway:
-    locations: ["classpath:/db/migration"]
+    locations: classpath:/db/migration

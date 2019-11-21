@@ -29,7 +29,7 @@ public class PreOrderStateTemplateImpl implements OrderStateTemplate<PreOrderBO,
                 .name(preOrderDTO.getName())
                 .amount(preOrderDTO.getAmount())
                 .price(preOrderDTO.getPrice())
-                .orderStatus(OrderStatusEnum.Created)
+                .orderStatus(OrderStatusEnum.CREATED)
                 .preMoney(preOrderDTO.getPreMoney())
                 .payAllMoneyDelay(preOrderDTO.getPayAllMoneyDelay())
                 .build();

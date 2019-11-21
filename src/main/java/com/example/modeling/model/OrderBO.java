@@ -24,9 +24,9 @@ public class OrderBO extends BaseOrderBO {
     }
 
     public void outStockOrder() {
-        if (OrderStatusEnum.Paid.equals(orderStatus)) {
-            this.orderStatus = OrderStatusEnum.OutStock;
-        } else if (OrderStatusEnum.Created.equals(orderStatus)) {
+        if (OrderStatusEnum.PAID.equals(orderStatus)) {
+            this.orderStatus = OrderStatusEnum.OUT_STOCK;
+        } else if (OrderStatusEnum.CREATED.equals(orderStatus)) {
             throw new CustomException("tried to out stock a order that not paid " + orderId);
         } else {
             throw new CustomException("tried to out stock a order that already out " + orderId);
@@ -35,8 +35,8 @@ public class OrderBO extends BaseOrderBO {
 
 
     public void deliverOrder() {
-        if (OrderStatusEnum.OutStock.equals(orderStatus)) {
-            this.orderStatus = OrderStatusEnum.Delivered;
+        if (OrderStatusEnum.OUT_STOCK.equals(orderStatus)) {
+            this.orderStatus = OrderStatusEnum.DELIVERED;
         } else {
             throw new CustomException("tried to deliver a order that not correct status " + orderId);
         }
@@ -44,8 +44,8 @@ public class OrderBO extends BaseOrderBO {
 
 
     public void deliveredOrder() {
-        if (OrderStatusEnum.Delivery.equals(orderStatus)) {
-            this.orderStatus = OrderStatusEnum.Delivered;
+        if (OrderStatusEnum.DELIVERY.equals(orderStatus)) {
+            this.orderStatus = OrderStatusEnum.DELIVERED;
         } else {
             throw new CustomException("tried to delivered a order that not correct status " + orderId);
         }

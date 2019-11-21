@@ -30,9 +30,9 @@ public class PreOrderBO extends BaseOrderBO {
     }
 
     public void partialPayOrder(PayService payService) {
-        if (OrderStatusEnum.Created.equals(this.orderStatus)) {
+        if (OrderStatusEnum.CREATED.equals(this.orderStatus)) {
             if (payService.pay(account, preMoney)) {
-                this.orderStatus = OrderStatusEnum.PartialPaid;
+                this.orderStatus = OrderStatusEnum.PARTIAL_PAID;
                 this.partialPayTime = System.currentTimeMillis();
             } else {
                 throw new CustomException("failed to partial pay order " + orderId);

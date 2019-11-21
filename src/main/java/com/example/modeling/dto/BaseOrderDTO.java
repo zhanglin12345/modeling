@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public abstract class BaseOrderDTO {
+public class BaseOrderDTO {
     @JsonProperty("order_id")
     private String orderId;
 

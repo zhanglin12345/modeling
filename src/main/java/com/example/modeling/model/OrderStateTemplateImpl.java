@@ -14,7 +14,7 @@ public class OrderStateTemplateImpl implements OrderStateTemplate<OrderBO, Order
                 .name(orderDTO.getName())
                 .amount(orderDTO.getAmount())
                 .price(orderDTO.getPrice())
-                .orderStatus(OrderStatusEnum.Created)
+                .orderStatus(OrderStatusEnum.CREATED)
                 .build();
     }
 

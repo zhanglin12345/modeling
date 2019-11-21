@@ -1,11 +1,11 @@
 package com.example.modeling.model;
 
 public enum OrderStatusEnum {
-    Created,
-    PartialPaid,
-    Paid_not_Confirm,
-    Paid,
-    OutStock,
-    Delivery,
-    Delivered
+    CREATED,
+    PARTIAL_PAID,
+    PAID_NOT_CONFIRM,
+    PAID,
+    OUT_STOCK,
+    DELIVERY,
+    DELIVERED
 }

@@ -9,8 +9,11 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class LogAspect {
+    // for log only
+    @SuppressWarnings({"PMD.UnusedPrivateMethod", "PMD.UncommentedEmptyMethodBody"})
     @Pointcut("execution(* com.example.modeling.biz..*(..))")
-    private void logPointcut() {}
+    private void logPointcut() {
+    }
 
     @Around("logPointcut()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
